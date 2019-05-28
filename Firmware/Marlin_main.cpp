@@ -2133,13 +2133,8 @@ bool calibrate_z_auto()
 	plan_buffer_line(destination[X_AXIS], destination[Y_AXIS], destination[Z_AXIS], destination[E_AXIS], feedrate / 60, active_extruder);
 	st_synchronize();
 	enable_endstops(endstops_enabled);
-	if (PRINTER_TYPE == PRINTER_MK3) {
-		current_position[Z_AXIS] = Z_MAX_POS + 2.0;
-	}
-	else {
-		current_position[Z_AXIS] = Z_MAX_POS + 9.0;
-	}
-    plan_set_position(current_position[X_AXIS], current_position[Y_AXIS], current_position[Z_AXIS], current_position[E_AXIS]);
+	current_position[Z_AXIS] = Z_MAX_POS;
+  plan_set_position(current_position[X_AXIS], current_position[Y_AXIS], current_position[Z_AXIS], current_position[E_AXIS]);
 	return true;
 }
 #endif //TMC2130
@@ -4450,8 +4445,8 @@ if((eSoundMode==e_SOUND_MODE_LOUD)||(eSoundMode==e_SOUND_MODE_ONCE))
 		#ifdef SUPPORT_VERBOSITY
 		if (verbosity_level >= 1)
 		{
-		    bool clamped = world2machine_clamp(current_position[X_AXIS], current_position[Y_AXIS]);
-			clamped ? SERIAL_PROTOCOLPGM("First calibration point clamped.\n") : SERIAL_PROTOCOLPGM("No clamping for first calibration point.\n");
+		    bool clamped2 = world2machine_clamp(current_position[X_AXIS], current_position[Y_AXIS]);
+			clamped2 ? SERIAL_PROTOCOLPGM("First calibration point clamped.\n") : SERIAL_PROTOCOLPGM("No clamping for first calibration point.\n");
 		}
 		#else //SUPPORT_VERBOSITY
 			world2machine_clamp(current_position[X_AXIS], current_position[Y_AXIS]);
@@ -4521,9 +4516,9 @@ if((eSoundMode==e_SOUND_MODE_LOUD)||(eSoundMode==e_SOUND_MODE_ONCE))
 			
 			#ifdef SUPPORT_VERBOSITY
 			if (verbosity_level >= 1) {
-				clamped = world2machine_clamp(current_position[X_AXIS], current_position[Y_AXIS]);
+				bool clamped2 = world2machine_clamp(current_position[X_AXIS], current_position[Y_AXIS]);
 				SERIAL_PROTOCOL(mesh_point);
-				clamped ? SERIAL_PROTOCOLPGM(": xy clamped.\n") : SERIAL_PROTOCOLPGM(": no xy clamping\n");
+				clamped2 ? SERIAL_PROTOCOLPGM(": xy clamped.\n") : SERIAL_PROTOCOLPGM(": no xy clamping\n");
 			}
 			#else //SUPPORT_VERBOSITY
 				world2machine_clamp(current_position[X_AXIS], current_position[Y_AXIS]);

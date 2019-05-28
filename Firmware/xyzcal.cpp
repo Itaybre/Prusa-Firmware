@@ -686,17 +686,11 @@ uint8_t xyzcal_xycoords2point(int16_t x, int16_t y)
 
 //MK3
 #if ((MOTHERBOARD == BOARD_EINSY_1_0a))
-const int16_t xyzcal_point_xcoords[4] PROGMEM = {1200, 22000, 22000, 1200};
-const int16_t xyzcal_point_ycoords[4] PROGMEM = {600, 600, 19800, 19800};
+const int16_t PROGMEM xyzcal_point_xcoords[4] = {1200, 22000, 22000, 1200};
+const int16_t PROGMEM xyzcal_point_ycoords[4] = {700, 700, 19800, 19800};
 #endif //((MOTHERBOARD == BOARD_EINSY_1_0a))
 
-//MK2.5
-#if ((MOTHERBOARD == BOARD_RAMBO_MINI_1_0) || (MOTHERBOARD == BOARD_RAMBO_MINI_1_3))
-const int16_t xyzcal_point_xcoords[4] PROGMEM = {1200, 22000, 22000, 1200};
-const int16_t xyzcal_point_ycoords[4] PROGMEM = {700, 700, 19800, 19800};
-#endif //((MOTHERBOARD == BOARD_RAMBO_MINI_1_0) || (MOTHERBOARD == BOARD_RAMBO_MINI_1_3))
-
-const uint16_t xyzcal_point_pattern[12] PROGMEM = {0x000, 0x0f0, 0x1f8, 0x3fc, 0x7fe, 0x7fe, 0x7fe, 0x7fe, 0x3fc, 0x1f8, 0x0f0, 0x000};
+const uint16_t PROGMEM xyzcal_point_pattern[12] = {0x000, 0x0f0, 0x1f8, 0x3fc, 0x7fe, 0x7fe, 0x7fe, 0x7fe, 0x3fc, 0x1f8, 0x0f0, 0x000};
 
 bool xyzcal_searchZ(void)
 {
@@ -752,7 +746,7 @@ bool xyzcal_scan_and_process(void)
 	}
 	uint8_t c = 0;
 	uint8_t r = 0;
-	if (xyzcal_find_pattern_12x12_in_32x32(pixels, pattern, &c, &r) > 66) //total pixels=144, corner=12 (1/2 = 66)
+	if (xyzcal_find_pattern_12x12_in_32x32(pixels, pattern, &c, &r) >= 28) //total pixels=144, corner=12 (1/2 = 66)
 	{
 		DBG(_n(" pattern found at %d %d\n"), c, r);
 		c += 6;

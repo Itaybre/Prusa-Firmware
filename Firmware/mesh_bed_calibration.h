@@ -2,7 +2,7 @@
 #define MESH_BED_CALIBRATION_H
 
 #define BED_ZERO_REF_X (- 22.f + X_PROBE_OFFSET_FROM_EXTRUDER) // -22 + 23 = 1
-#define BED_ZERO_REF_Y (- 0.6f + Y_PROBE_OFFSET_FROM_EXTRUDER + 4.f) // -0.6 + 5 + 4 = 8.4
+#define BED_ZERO_REF_Y (- 0.6f + Y_PROBE_OFFSET_FROM_EXTRUDER) // -0.6 + 5 + 4 = 8.4
 
 #ifdef HEATBED_V2
 

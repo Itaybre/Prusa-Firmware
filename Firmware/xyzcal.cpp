@@ -686,8 +686,8 @@ uint8_t xyzcal_xycoords2point(int16_t x, int16_t y)
 
 //MK3
 #if ((MOTHERBOARD == BOARD_EINSY_1_0a))
-const int16_t PROGMEM xyzcal_point_xcoords[4] = {1200, 22000, 22000, 1200};
-const int16_t PROGMEM xyzcal_point_ycoords[4] = {700, 700, 19800, 19800};
+const int16_t PROGMEM xyzcal_point_xcoords[4] = {1200, 17500, 17500, 1200};
+const int16_t PROGMEM xyzcal_point_ycoords[4] = {600, 600, 15500, 15500};
 #endif //((MOTHERBOARD == BOARD_EINSY_1_0a))
 
 const uint16_t PROGMEM xyzcal_point_pattern[12] = {0x000, 0x0f0, 0x1f8, 0x3fc, 0x7fe, 0x7fe, 0x7fe, 0x7fe, 0x3fc, 0x1f8, 0x0f0, 0x000};
@@ -731,7 +731,8 @@ bool xyzcal_scan_and_process(void)
 	int16_t z = _Z;
 
 	uint8_t* pixels = (uint8_t*)block_buffer;
-	xyzcal_scan_pixels_32x32(x, y, z - 72, 2400, 200, pixels);
+  int16_t diff = 150;
+	xyzcal_scan_pixels_32x32(x, y, z - diff, 2400, 200, pixels);
 
 	uint16_t* histo = (uint16_t*)(pixels + 32*32);
 	xyzcal_histo_pixels_32x32(pixels, histo);
@@ -769,7 +770,8 @@ bool xyzcal_find_bed_induction_sensor_point_xy(void)
 	st_synchronize();
 	int16_t x = _X;
 	int16_t y = _Y;
-	int16_t z = _Z;
+//	int16_t z = _Z;
+  int16_t z = 400;
 	uint8_t point = xyzcal_xycoords2point(x, y);
 	x = pgm_read_word((uint16_t*)(xyzcal_point_xcoords + point));
 	y = pgm_read_word((uint16_t*)(xyzcal_point_ycoords + point));
